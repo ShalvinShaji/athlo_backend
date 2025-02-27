@@ -1,6 +1,8 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const adminRoutes = require("./routes/adminRoutes");
+const productRoutes = require("./routes/productRoutes");
+
 dotenv.config();
 
 const app = express();
@@ -16,6 +18,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use("/admin", adminRoutes);
+app.use("/products", productRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json({ status: "success" });
