@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const adminRoutes = require("./routes/adminRoutes");
 dotenv.config();
 
 const app = express();
@@ -14,10 +15,10 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: "Something went wrong!" });
 });
 
+app.use("/admin", adminRoutes);
+
 app.get("/", (req, res) => {
   res.status(200).json({ status: "success" });
 });
-
-
 
 module.exports = app;
