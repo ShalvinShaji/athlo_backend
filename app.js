@@ -21,7 +21,9 @@ app.use("/admin", adminRoutes);
 app.use("/products", productRoutes);
 
 app.get("/", (req, res) => {
-  res.status(200).json({ status: "success" });
+  res
+    .status(200)
+    .json({ status: "success", mesaage: "Athlo admin API is running" });
 });
 
 module.exports = app;
