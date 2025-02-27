@@ -18,6 +18,6 @@ app.get("/", (req, res) => {
   res.status(200).json({ status: "success" });
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`Athlo admin API is running at port ${process.env.PORT}`);
-});
+
+
+module.exports = app;
