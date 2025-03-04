@@ -3,7 +3,7 @@ const Product = require("../models/Product");
 // Create new product
 exports.createProduct = async (req, res) => {
   try {
-    let { name, price, description, category, stock } = req.body;
+    let { name, price, description, category } = req.body;
     let isProductExist = await Product.findOne({ name });
     if (isProductExist) {
       let newStock = Number(isProductExist.stock) + Number(stock);
@@ -23,7 +23,6 @@ exports.createProduct = async (req, res) => {
         price,
         description,
         category,
-        stock,
       });
       res
         .status(200)
