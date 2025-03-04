@@ -4,6 +4,12 @@ const Product = require("../models/Product");
 exports.createProduct = async (req, res) => {
   try {
     let { name, price, description, category } = req.body;
+    let image = "";
+    if (req.file) {
+      image = `data:${req.file.mimetype};base64,${req.file.buffer.toString(
+        "base64"
+      )}`;
+    }
     let isProductExist = await Product.findOne({ name });
     if (isProductExist) {
       let newStock = Number(isProductExist.stock) + Number(stock);
@@ -23,6 +29,7 @@ exports.createProduct = async (req, res) => {
         price,
         description,
         category,
+        image,
       });
       res
         .status(200)
