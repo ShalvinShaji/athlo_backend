@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const adminRoutes = require("./routes/adminRoutes");
 const productRoutes = require("./routes/productRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 const cors = require("cors");
 
 dotenv.config();
@@ -22,6 +23,7 @@ app.use((err, req, res, next) => {
 
 app.use("/admin", adminRoutes);
 app.use("/products", productRoutes);
+app.use("/orders", orderRoutes);
 
 app.get("/", (req, res) => {
   res
