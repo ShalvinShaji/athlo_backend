@@ -7,7 +7,6 @@ const { authenticate } = require("../middleware/auth");
 
 router.get("/", authenticate, ordersController.getOrders);
 
-// GET /orders/:orderId - Fetch detailed order by ID
 router.get("/:orderId", authenticate, ordersController.getOrder);
 router.post("/create", authenticate, ordersController.createOrder);
 // router.patch("/update/:orderId", authenticate, ordersController.updateOrder);

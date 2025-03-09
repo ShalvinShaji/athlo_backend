@@ -4,7 +4,7 @@ exports.getOrders = async (req, res) => {
   try {
     const orders = await Order.find({})
       .populate("user", "name email")
-      .select("_id user totalAmount status createdAt");
+      .select("_id user totalAmount delivered cancelled deleted createdAt");
     res.status(200).json(orders);
   } catch (error) {
     res.status(500).json({ message: "Error fetching orders", error });
@@ -53,9 +53,14 @@ exports.cancelOder = async (req, res) => {
   }
 };
 exports.deliverOrder = async (req, res) => {
-  console.log(req.body);
-  const { orderId } = req.body;
+  console.log(req.params);
+  const { orderId } = req.params;
   try {
+    const order = await Order.findByIdAndUpdate(
+      orderId,
+      { delivered: true },
+      { new: true }
+    );
     res.status(201).json(orderId);
   } catch (error) {
     res.status(500).json({ message: "Error delivering order", error });
