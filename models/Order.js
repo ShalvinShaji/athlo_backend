@@ -21,7 +21,7 @@ const orderSchema = new mongoose.Schema({
       price: {
         type: Number,
         required: true,
-        min: 0, //
+        min: 0,
       },
     },
   ],
@@ -31,6 +31,18 @@ const orderSchema = new mongoose.Schema({
     min: 0,
   },
   createdAt: { type: Date, default: Date.now },
+  delivered: {
+    type: Boolean,
+    default: false,
+  },
+  cancelled: {
+    type: Boolean,
+    default: false,
+  },
+  deleted: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model("Order", orderSchema);

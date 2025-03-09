@@ -10,5 +10,9 @@ router.get("/", authenticate, ordersController.getOrders);
 // GET /orders/:orderId - Fetch detailed order by ID
 router.get("/:orderId", authenticate, ordersController.getOrder);
 router.post("/create", authenticate, ordersController.createOrder);
+// router.patch("/update/:orderId", authenticate, ordersController.updateOrder);
+router.patch("/delete/:orderId", authenticate, ordersController.deleteOrder);
+router.patch("/cancel/:orderId", authenticate, ordersController.cancelOder);
+router.patch("/deliver/:orderId", authenticate, ordersController.deliverOrder);
 
 module.exports = router;

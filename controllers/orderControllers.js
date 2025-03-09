@@ -26,12 +26,38 @@ exports.getOrder = async (req, res) => {
 };
 
 exports.createOrder = async (req, res) => {
-  console.log(req.body);
   const { user, items, totalAmount } = req.body;
   try {
     const order = await Order.create({ user, items, totalAmount });
     res.status(201).json(order);
   } catch (error) {
     res.status(500).json({ message: "Error creating order", error });
+  }
+};
+exports.deleteOrder = async (req, res) => {
+  console.log(req.body);
+  const { orderId } = req.body;
+  try {
+    res.status(201).json(orderId);
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting order", error });
+  }
+};
+exports.cancelOder = async (req, res) => {
+  console.log(req.body);
+  const { orderId } = req.body;
+  try {
+    res.status(201).json(orderId);
+  } catch (error) {
+    res.status(500).json({ message: "Error cancelling order", error });
+  }
+};
+exports.deliverOrder = async (req, res) => {
+  console.log(req.body);
+  const { orderId } = req.body;
+  try {
+    res.status(201).json(orderId);
+  } catch (error) {
+    res.status(500).json({ message: "Error delivering order", error });
   }
 };
