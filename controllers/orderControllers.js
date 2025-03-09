@@ -13,14 +13,18 @@ exports.getOrders = async (req, res) => {
 
 exports.getOrder = async (req, res) => {
   try {
-    const order = await Order.findById(req.params.orderId)
-      .populate("user", "name email address") // Populate user details
-      .populate("items.product", "name price"); // Populate product details in items
+    const order = await Order.findById(req.params.orderId).populate(
+      "items.product",
+      "name price image"
+    );
+
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
     }
+
     res.json(order);
   } catch (error) {
+    console.error("Error fetching order:", error);
     res.status(500).json({ message: "Error fetching order details", error });
   }
 };
@@ -35,25 +39,33 @@ exports.createOrder = async (req, res) => {
   }
 };
 exports.deleteOrder = async (req, res) => {
-  console.log(req.body);
-  const { orderId } = req.body;
+  const { orderId } = req.params;
   try {
-    res.status(201).json(orderId);
+    const order = await Order.findByIdAndUpdate(
+      orderId,
+      { deleted: true },
+      { new: true }
+    );
+    res.status(201).json({ message: "success" });
   } catch (error) {
     res.status(500).json({ message: "Error deleting order", error });
   }
 };
 exports.cancelOder = async (req, res) => {
-  console.log(req.body);
-  const { orderId } = req.body;
+  const { orderId } = req.params;
   try {
-    res.status(201).json(orderId);
+    const order = await Order.findByIdAndUpdate(
+      orderId,
+      { cancelled: true },
+      { new: true }
+    );
+
+    res.status(201).json({ message: "success" });
   } catch (error) {
     res.status(500).json({ message: "Error cancelling order", error });
   }
 };
 exports.deliverOrder = async (req, res) => {
-  console.log(req.params);
   const { orderId } = req.params;
   try {
     const order = await Order.findByIdAndUpdate(
@@ -61,7 +73,7 @@ exports.deliverOrder = async (req, res) => {
       { delivered: true },
       { new: true }
     );
-    res.status(201).json(orderId);
+    res.status(201).json({ message: "success" });
   } catch (error) {
     res.status(500).json({ message: "Error delivering order", error });
   }
